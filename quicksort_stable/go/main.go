@@ -28,11 +28,20 @@ func main() {
 }
 
 func test(a []*Pair) {
+	a1 := make([]*Pair, len(a))
+	copy(a1, a)
+	quicksort(a1, 0, len(a)-1)
+	printOut(a1)
 
 	a2 := make([]*Pair, len(a))
 	copy(a2, a)
-	quicksort(a2, 0, len(a)-1)
+	quicksortStable(a2, 0, len(a)-1)
 	printOut(a2)
+
+	a3 := make([]*Pair, len(a))
+	copy(a3, a)
+	quicksortStableNoRecursion(a3)
+	fmt.Printf("%v\n", a3)
 }
 
 func printOut(a []*Pair) {
@@ -59,13 +68,40 @@ func quicksort(a []*Pair, l int, r int) {
 }
 
 func quicksortStable(a []*Pair, l int, r int) {
-	//fmt.Println(l, r)
+	fmt.Println(l, r)
 	if l >= r {
 		return
 	}
-	m := partition(a, l, r)
-	quicksort(a, l, m)
-	quicksort(a, m+1, r)
+	smallEnd, largeStart := partitionStable(a, l, r)
+	quicksortStable(a, l, smallEnd)
+	quicksortStable(a, largeStart, r)
+}
+
+func quicksortStableNoRecursion(a []*Pair) {
+	stack := &Stack{}
+	stack.Push(len(a) - 1)
+	stack.Push(0)
+
+	for {
+		l, ok := stack.Pop()
+		if !ok {
+			break
+		}
+		r, _ := stack.Pop()
+
+		fmt.Println(l, r)
+
+		if l >= r {
+			continue
+		}
+
+		m1, m2 := partitionStable(a, l, r)
+		stack.Push(r)
+		stack.Push(m2)
+
+		stack.Push(m1)
+		stack.Push(l)
+	}
 }
 
 func partition(a []*Pair, l int, r int) int {
@@ -90,26 +126,29 @@ func partition(a []*Pair, l int, r int) int {
 	return t
 }
 
-func partitionStable(a []*Pair, l int, r int) int {
+func partitionStable(a []*Pair, l int, r int) (int, int) {
 	p := getPivot(a, l, r)
 	//fmt.Printf("p = %d\n", p)
-	s := l
-	t := r
-	for {
-		for a[s].x < p.x {
-			s++
+	small := []*Pair{}
+	mid := []*Pair{}
+	large := []*Pair{}
+
+	for i := l; i <= r; i++ {
+		if a[i].x < p.x {
+			small = append(small, a[i])
+		} else if a[i].x > p.x {
+			large = append(large, a[i])
+		} else {
+			mid = append(mid, a[i])
 		}
-		for a[t].x > p.x {
-			t--
-		}
-		if s >= t {
-			break
-		}
-		a[s], a[t] = a[t], a[s]
-		s++
-		t--
 	}
-	return t
+	midPos := l + len(small)
+	largePos := midPos + len(mid)
+	copy(a[l:midPos], small)
+	copy(a[midPos:largePos], mid)
+	copy(a[largePos:], large)
+
+	return midPos - 1, largePos
 }
 
 func getPivot(a []*Pair, l int, r int) *Pair {
