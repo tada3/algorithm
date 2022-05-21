@@ -119,7 +119,12 @@ func partition(a []*Pair, l int, r int) int {
 		if s >= t {
 			break
 		}
-		a[s], a[t] = a[t], a[s]
+		if a[s].x > a[t].x {
+			a[s], a[t] = a[t], a[s]
+		}else {
+			s++
+			t--
+		}
 	}
 	return t
 }

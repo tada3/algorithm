@@ -12,7 +12,6 @@ func main() {
 	a := []int{2, 3, 5, 1, 8, 4}
 	test(a)
 
-	/**
 	a = []int{2, 2, 2, 2, 2}
 	test(a)
 
@@ -24,7 +23,7 @@ func main() {
 
 	a = []int{9, 8, 7, 6, 5, 4, 3, 2, 1}
 	test(a)
-	**/
+	
 	a = []int{4, 3, 7, 1, 5}
 	test(a)
 
@@ -100,7 +99,13 @@ func partition(a []int, l int, r int) int {
 		if s >= t {
 			break
 		}
-		a[s], a[t] = a[t], a[s]
+		if a[s] > a[t] {
+			a[s], a[t] = a[t], a[s]
+		} else {
+			s++
+			t--
+		}
+		
 	}
 	fmt.Println("a = ", a)
 	fmt.Println("bunki = ", t)
