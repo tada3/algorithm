@@ -120,8 +120,6 @@ func partition(a []*Pair, l int, r int) int {
 			break
 		}
 		a[s], a[t] = a[t], a[s]
-		s++
-		t--
 	}
 	return t
 }

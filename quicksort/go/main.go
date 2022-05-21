@@ -101,8 +101,6 @@ func partition(a []int, l int, r int) int {
 			break
 		}
 		a[s], a[t] = a[t], a[s]
-		//s++
-		//t--
 	}
 	fmt.Println("a = ", a)
 	fmt.Println("bunki = ", t)
