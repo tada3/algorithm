@@ -7,9 +7,12 @@ import (
 
 func main() {
 	println("hello")
+
+
 	a := []int{2, 3, 5, 1, 8, 4}
 	test(a)
 
+	/**
 	a = []int{2, 2, 2, 2, 2}
 	test(a)
 
@@ -21,6 +24,10 @@ func main() {
 
 	a = []int{9, 8, 7, 6, 5, 4, 3, 2, 1}
 	test(a)
+	**/
+	a = []int{4, 3, 7, 1, 5}
+	test(a)
+
 }
 
 func test(a []int) {
@@ -79,10 +86,11 @@ func quicksortNoRecursion(a []int) {
 
 func partition(a []int, l int, r int) int {
 	p := getPivot(a, l, r)
-	//fmt.Printf("p = %d\n", p)
+	fmt.Printf("p = %d\n", p)
 	s := l
 	t := r
 	for {
+		fmt.Println("s, t", s, t)
 		for a[s] < p {
 			s++
 		}
@@ -93,9 +101,11 @@ func partition(a []int, l int, r int) int {
 			break
 		}
 		a[s], a[t] = a[t], a[s]
-		s++
-		t--
+		//s++
+		//t--
 	}
+	fmt.Println("a = ", a)
+	fmt.Println("bunki = ", t)
 	return t
 }
 
