@@ -80,7 +80,7 @@ func quicksort2(a []pair, l int, r int) {
 		return
 	}
 	m := partition2(a, l, r)
-	quicksort2(a, l, m)
+	quicksort2(a, l, m-1)
 	quicksort2(a, m+1, r)
 }
 

@@ -53,7 +53,7 @@ func quicksort(a []int, l int, r int) {
 		return
 	}
 	m := partition(a, l, r)
-	quicksort(a, l, m)
+	quicksort(a, l, m-1)
 	quicksort(a, m+1, r)
 }
 
