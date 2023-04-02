@@ -45,7 +45,7 @@ class SparseTable:
 	
 	@staticmethod
 	def build_logs(n):
-		# longs[n] is used.
+		# logs[n] is used.
 		logs = [0] * (n + 1)
 		for i in range(2, n + 1):
 			logs[i] = logs[i >> 1] + 1
