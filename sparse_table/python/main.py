@@ -65,5 +65,17 @@ print('min[3, 3]', min)
 min = st.query(0, 6)
 print('min[0, 6]', min)
 
+a = [3, 2, 4, 9, 1, 5, 8, 0, 10, 500]
+print('a', a)
+st = SparseTable(a)
+min = st.query(0, 8)
+print('min[0, 8]', min)
+
+a = [4]
+print('a', a)
+st = SparseTable(a)
+min = st.query(0, 0)
+print('min[0, 0]', min)
+
 print('END')
 
